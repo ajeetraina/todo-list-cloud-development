@@ -45,7 +45,7 @@ The application is divided into two main parts:
 1. **Clone the repository:**
 
 ```sh
-git clone https://github.com/OnurSerbes/mern-stack-aws-todo.git 
+git clone https://github.com/OnurSerbes/mern-stack-aws-todo.git
 cd mern-stack-aws-todo
 ```
 
@@ -149,6 +149,7 @@ The client will be running on `http://localhost:3000` and the server on `http://
 The application uses MongoDB as its NoSQL database. Below is the structure of the MongoDB collections:
 
 - **Users Collection (`test.users`)**:
+
   - `_id`: ObjectId
   - `username`: String
   - `password`: String (hashed)
@@ -170,7 +171,8 @@ The application uses MongoDB as its NoSQL database. Below is the structure of th
 
 For AWS usage, IAM and S3 services are utilized:
 
-- **IAM**: 
+- **IAM**:
+
   - Created a group called `admin1` and added a user called `developer`.
   - Generated access key and secret key for the `developer` user to enhance security.
   - This setup prevents direct usage of the root user account, ensuring a hierarchical and secure structure.
@@ -183,5 +185,3 @@ For AWS usage, IAM and S3 services are utilized:
 
 - The `developer` IAM user has limited permissions as compared to the root user, ensuring that the root account details remain secure.
 - Using IAM roles and policies, access to the S3 bucket is managed securely.
-
-
