@@ -70,6 +70,11 @@ git clone https://github.com/ajeetraina/todo-list-cloud-development/
 cd todo-list-cloud-development
 ```
 
+2. **Using docker init:**
+
+Go to sever/ and client/ folder and use docker init to build Dockerfile and compose file respectively.
+
+
 2. **Setup Docker Compose File:**
 
 
