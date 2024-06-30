@@ -1,6 +1,6 @@
-# Full-Stack Todo Application
+# A todo-List App using Docker 
 
-This is a full-stack Todo application built with React, Node.js, Express, and MongoDB. The application allows users to register, log in, create, update, delete, and filter their to-do tasks. It also supports file uploads to AWS S3.
+This full-stack Todo application was built with React, Node.js, Express, and MongoDB. The application allows users to register, log in, create, update, delete, and filter their to-do tasks. It also supports file uploads to AWS S3.
 
 ## Table of Contents
 
@@ -40,25 +40,47 @@ The application is divided into two main parts:
 - MongoDB
 - AWS S3 account (for file uploads)
 
+## AWS Setup
+
+### IAM and S3 Configuration
+
+For AWS usage, IAM and S3 services are utilized:
+
+- **IAM**:
+
+  - Created a group called `admin1` and added a user called `developer`.
+  - Generated access key and secret key for the `developer` user to enhance security.
+  - This setup prevents direct usage of the root user account, ensuring a hierarchical and secure structure.
+
+- **S3**:
+  - Used for general storage options for files and images.
+  - All files and images uploaded by users are stored in an S3 bucket named `mytestcasebucket`
+ 
+If you're new to S3, then follow these steps in detail.
+
 ## Installation
 
 1. **Clone the repository:**
 
 ```sh
-git clone https://github.com/OnurSerbes/mern-stack-aws-todo.git
-cd mern-stack-aws-todo
+git clone https://github.com/ajeetraina/todo-list-cloud-development/
+cd todo-list-cloud-development
 ```
 
-2. **Install dependencies for both client and server:**
+2. **Setup Docker Compose File:**
 
-```sh
-# Install server dependencies
-cd server
-npm install
 
-# Install client dependencies
-cd ../client
-npm install
+Open `compose.yml` and enter AWS credentials as per your environment. Assuming that you have S3 already configured, enter the bucket name.
+
+
+```
+   environment:
+      - MONGODB_URI=mongodb://mongodb:27017/todo-app
+      - JWT_SECRET=your-jwt-secret-key
+      - AWS_ACCESS_KEY_ID=XXXX
+      - AWS_SECRET_ACCESS_KEY=XXX
+      - AWS_REGION=us-east-1
+      - S3_BUCKET_NAME=localbuck
 ```
 
 Running `npm install` in each directory will set up all necessary dependencies specified in the `package.json` files.
@@ -112,23 +134,8 @@ S3_BUCKET_NAME=<your-s3-bucket-name>
 PORT=5000
 ```
 
-## Running the Application
 
-1. **Start the server:**
 
-```sh
-cd server
-npm start
-```
-
-2. **Start the client:**
-
-```sh
-cd client
-npm start
-```
-
-The client will be running on `http://localhost:3000` and the server on `http://localhost:5000`.
 
 ## API Endpoints
 
@@ -165,21 +172,7 @@ The application uses MongoDB as its NoSQL database. Below is the structure of th
   - `createdAt`: Date
   - `updatedAt`: Date
 
-## AWS Setup
 
-### IAM and S3 Configuration
-
-For AWS usage, IAM and S3 services are utilized:
-
-- **IAM**:
-
-  - Created a group called `admin1` and added a user called `developer`.
-  - Generated access key and secret key for the `developer` user to enhance security.
-  - This setup prevents direct usage of the root user account, ensuring a hierarchical and secure structure.
-
-- **S3**:
-  - Used for general storage options for files and images.
-  - All files and images uploaded by users are stored in an S3 bucket named `mytestcasebucket`.
 
 ### Security Measures
 
