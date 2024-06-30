@@ -2,7 +2,7 @@
 
 This full-stack Todo application was built with React, Node.js, Express, and MongoDB. The application allows users to register, log in, create, update, delete, and filter their to-do tasks. It also supports file uploads to AWS S3.
 
-<img width="1107" alt="image" src="https://github.com/ajeetraina/todo-list-cloud-development/assets/313480/69e17d0d-f952-4317-8149-232a534ceac4">
+<img width="1119" alt="image" src="https://github.com/ajeetraina/todo-list-cloud-development/assets/313480/3268d2b7-944c-4238-ace1-c2a872c58a68">
 
 
 ## Table of Contents
