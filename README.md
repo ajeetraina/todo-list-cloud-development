@@ -56,7 +56,7 @@ For AWS usage, IAM and S3 services are utilized:
   - Used for general storage options for files and images.
   - All files and images uploaded by users are stored in an S3 bucket named `mytestcasebucket`
  
-If you're new to S3, then follow these steps in detail.
+If you're new to S3, then [follow these steps in detail](https://github.com/ajeetraina/todo-list-cloud-development/blob/mern/s3.md).
 
 ## Installation
 
