@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - localstack
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/todo-app
+      - JWT_SECRET=your-jwt-secret-key
+      - AWS_ACCESS_KEY_ID=XXXX
+      - AWS_SECRET_ACCESS_KEY=XXX
+      - AWS_REGION=us-east-1
+      - S3_BUCKET_NAME=localbuck
+    networks:
+      - localnet
+
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    networks:
+      - localnet
+
+
+
+  mongodb:
+    image: mongo
+    volumes:
+      - mongodbdata:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - localnet
+
+
+volumes:
+  mongodbdata:
+
+
+networks:
+  localnet:
