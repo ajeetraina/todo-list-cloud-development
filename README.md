@@ -66,8 +66,8 @@ If you're new to S3, then [follow these steps in detail](https://github.com/ajee
 1. **Clone the repository:**
 
 ```sh
-git clone https://github.com/ajeetraina/todo-list-cloud-development/
-cd todo-list-cloud-development
+git clone https://github.com/ajeetraina/todo-list-local-cloud/
+cd todo-list-local-cloud
 ```
 
 2. **Using docker init:**
