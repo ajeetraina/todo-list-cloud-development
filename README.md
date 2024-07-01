@@ -82,7 +82,7 @@ Open `compose.yml` and enter AWS credentials as per your environment. Assuming t
 
 ```
    environment:
-      - MONGODB_URI=mongodb://mongodb:27017/todo-app
+      - MONGODB_URI=mongodb://your_username:your_password@your_cluster_endpoint/todo-app # Replace with your actual connection string
       - JWT_SECRET=your-jwt-secret-key
       - AWS_ACCESS_KEY_ID=XXXX
       - AWS_SECRET_ACCESS_KEY=XXX
