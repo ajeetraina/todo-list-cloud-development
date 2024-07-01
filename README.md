@@ -1,8 +1,8 @@
-# A todo-List App using Docker 
+# A todo-List App using Docker and Localstack
 
-This full-stack Todo application was built with React, Node.js, Express, and MongoDB. The application allows users to register, log in, create, update, delete, and filter their to-do tasks. It also supports image and file uploads to AWS S3.
+This full-stack Todo application was built with React, Node.js, Express, and MongoDB. The application allows users to register, log in, create, update, delete, and filter their to-do tasks. It also supports image and file uploads to Localstack emulated S3.
 
-<img width="1159" alt="image" src="https://github.com/ajeetraina/todo-list-cloud-development/assets/313480/63b06513-06e4-4a4b-99db-7e05db42b025">
+![image](https://github.com/ajeetraina/todo-list-local-cloud/assets/313480/a303525c-b376-4076-bc19-e7e9727d06eb)
 
 
 ## Table of Contents
@@ -38,28 +38,12 @@ The application is divided into two main parts:
 
 ## Prerequisites
 
+- Docker Desktop
 - Node.js
 - npm or yarn
 - MongoDB
-- AWS S3 account (for file uploads)
+- Localstack
 
-## AWS Setup
-
-### IAM and S3 Configuration
-
-For AWS usage, IAM and S3 services are utilized:
-
-- **IAM**:
-
-  - Created a group called `admin1` and added a user called `developer`.
-  - Generated access key and secret key for the `developer` user to enhance security.
-  - This setup prevents direct usage of the root user account, ensuring a hierarchical and secure structure.
-
-- **S3**:
-  - Used for general storage options for files and images.
-  - All files and images uploaded by users are stored in an S3 bucket named `mytestcasebucket`
- 
-If you're new to S3, then [follow these steps in detail](https://github.com/ajeetraina/todo-list-cloud-development/blob/mern/s3.md).
 
 ## Installation
 
@@ -85,13 +69,21 @@ Open `compose.yml` and enter AWS credentials as per your environment. Assuming t
    environment:
       - MONGODB_URI=mongodb://mongodb:27017/todo-app
       - JWT_SECRET=your-jwt-secret-key
-      - AWS_ACCESS_KEY_ID=XXXX
-      - AWS_SECRET_ACCESS_KEY=XXX
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
       - AWS_REGION=us-east-1
-      - S3_BUCKET_NAME=localbuck
+      - S3_BUCKET_NAME=sample-bucket
 ```
 
-Running `npm install` in each directory will set up all necessary dependencies specified in the `package.json` files.
+3. **Bringing up services:**
+
+```
+ docker compose up -d
+```
+
+<img width="1162" alt="image" src="https://github.com/ajeetraina/todo-list-local-cloud/assets/313480/839b5784-0300-4674-898d-dba0ea70e74e">
+
+
 
 ## Libraries and Tools Used
 
