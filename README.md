@@ -2,7 +2,8 @@
 
 This full-stack Todo application was built with React, Node.js, Express, and MongoDB. The application allows users to register, log in, create, update, delete, and filter their to-do tasks. It also supports image and file uploads to Localstack emulated S3.
 
-![image](https://github.com/ajeetraina/todo-list-local-cloud/assets/313480/a303525c-b376-4076-bc19-e7e9727d06eb)
+![image](https://github.com/ajeetraina/todo-list-local-cloud/assets/313480/7e4bc7ea-e06c-4ffb-92ba-cd6bbce28b22)
+
 
 
 ## Table of Contents
