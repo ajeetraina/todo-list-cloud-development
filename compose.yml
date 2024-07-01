@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5000:5000
-    depends_on:
-      - localstack
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/todo-app
       - JWT_SECRET=your-jwt-secret-key
