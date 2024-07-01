@@ -8,7 +8,7 @@ services:
     ports:
       - 5000:5000
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/todo-app
+      - MONGODB_URI=mongodb://your_username:your_password@your_cluster_endpoint/todo-app # Replace with your actual connection string
       - JWT_SECRET=your-jwt-secret-key
       - AWS_ACCESS_KEY_ID=XXXX
       - AWS_SECRET_ACCESS_KEY=XXX
@@ -28,18 +28,6 @@ services:
       - server
     networks:
       - localnet
-
-
-
-  mongodb:
-    image: mongo
-    volumes:
-      - mongodbdata:/data/db
-    ports:
-      - 27017:27017
-    networks:
-      - localnet
-
 
 volumes:
   mongodbdata:
