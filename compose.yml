@@ -7,10 +7,11 @@ services:
       - 5000:5000
     depends_on:
       - localstack
+      - mongo
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/todo-app
+      - MONGODB_URI=mongodb://mongo:27017/todo-app
       - JWT_SECRET=v9K/zavPZm4TVXQ9t0N0eackvHeY3E5+IzyueJMvLxc=
-      - AWS_ENDPOINT=http://localhost:4566
+      - AWS_ENDPOINT=http://host.docker.internal:4566
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_REGION=us-east-1
@@ -29,10 +30,10 @@ services:
     networks:
       - localnet
 
-  mongodb:
+  mongo:
     image: mongo
     volumes:
-      - mongodbdata:/data/db
+      - mongo-data:/data/db
     ports:
       - 27017:27017
     networks:
@@ -48,7 +49,6 @@ services:
       - DEBUG=${DEBUG:-0}
       - SERVICES=S3
       - EDGE_PORT=4566
-      - AWS_DEFAULT_REGION=us-east-1
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -57,7 +57,7 @@ services:
 
 
 volumes:
-  mongodbdata:
+  mongo-data:
 
 
 networks:
