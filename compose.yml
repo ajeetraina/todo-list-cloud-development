@@ -1,37 +1,134 @@
+# version: '3'
+
+# services:
+#   server:
+#     build:
+#       context: ./server
+#       dockerfile: Dockerfile
+#     ports:
+#       - 5000:5000
+#     environment:
+#       - MONGODB_URI=mongodb://your_username:your_password@your_cluster_endpoint/todo-app # Replace with your actual connection string
+#       - JWT_SECRET=your-jwt-secret-key
+#       - AWS_ACCESS_KEY_ID=XXXX
+#       - AWS_SECRET_ACCESS_KEY=XXX
+#       - AWS_REGION=us-east-1
+#       - S3_BUCKET_NAME=localbuck
+#     networks:
+#       - localnet
+
+
+#   client:
+#     build:
+#       context: ./client
+#       dockerfile: Dockerfile
+#     ports:
+#       - 3000:3000
+#     depends_on:
+#       - server
+#     networks:
+#       - localnet
+
+# volumes:
+#   mongodbdata:
+
+
+# networks:
+#   localnet:
+
+
+
+# version: '3'
+
+# services:
+#   frontend:
+#     build:
+#       context: ./client
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - REACT_APP_API_URL=http://localhost:5000/api
+
+#   backend:
+#     build:
+#       context: ./server
+#       dockerfile: Dockerfile
+#     ports:
+#       - "5000:5000"
+#     environment:
+#       - MONGODB_URI=mongodb://mongo:27017/todo-app
+#       - JWT_SECRET=xxxxxxxxxxxxxxxx
+#       - AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxxxxxx
+#       - AWS_SECRET_ACCESS_KEY=xxxxxxxxxxx
+#       - AWS_REGION=us-east-1
+#       - S3_BUCKET_NAME=localbuck
+
+#   mongo:
+#     image: mongo
+#     ports:
+#       - "27018:27017"
+#     volumes:
+#       - mongo-data:/data/db
+
+#   localstack:
+#     image: localstack/localstack
+#     ports:
+#       - "4567:4566"
+#     environment:
+#       - SERVICES=s3
+#       - DEBUG=1
+
+# volumes:
+#   mongo-data:
+
+
+
+
+
 version: '3'
 
 services:
-  server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports:
-      - 5000:5000
-    environment:
-      - MONGODB_URI=mongodb://your_username:your_password@your_cluster_endpoint/todo-app # Replace with your actual connection string
-      - JWT_SECRET=your-jwt-secret-key
-      - AWS_ACCESS_KEY_ID=XXXX
-      - AWS_SECRET_ACCESS_KEY=XXX
-      - AWS_REGION=us-east-1
-      - S3_BUCKET_NAME=localbuck
-    networks:
-      - localnet
-
-
-  client:
+  frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend:5000/api # Point to backend service
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/todo-app
+      - JWT_SECRET=xxxxxxxxxxxxxxxxxxxxx
+      - AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxxxxxxxxx
+      - AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      - AWS_REGION=us-east-1
+      - S3_BUCKET_NAME=localbuck
     depends_on:
-      - server
-    networks:
-      - localnet
+      - mongo
+      - localstack
+
+  mongo:
+    image: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4567:4566"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
 
 volumes:
-  mongodbdata:
-
-
-networks:
-  localnet:
+  mongo-data:
