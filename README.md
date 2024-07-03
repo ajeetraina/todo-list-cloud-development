@@ -12,14 +12,8 @@ This full-stack Todo application was built with React, Node.js, Express, and Mon
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Environment Variables](#environment-variables)
 - [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Folder Structure](#folder-structure)
-- [MongoDB Setup](#mongodb-setup)
-- [AWS Setup](#aws-setup)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Architecture
 
