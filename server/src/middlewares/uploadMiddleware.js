@@ -6,13 +6,12 @@ require('dotenv').config();
 const s3 = new S3Client({
   region: 'us-east-1',
   forcePathStyle: true,
-  endpoint: 'http://host.docker.internal:4566',
+  endpoint: 'http://localstack:4566',
   credentials: {
     accessKeyId: 'test',
     secretAccessKey: 'test',
   },
 });
-
 const upload = multer({
   storage: multerS3({
     s3: s3,

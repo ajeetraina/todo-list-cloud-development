@@ -8,6 +8,8 @@ services:
     depends_on:
       - localstack
       - mongo
+    dns:
+      - 10.0.2.20
     environment:
       - MONGODB_URI=mongodb://mongo:27017/todo-app
       - JWT_SECRET=XXXXX
@@ -49,15 +51,20 @@ services:
       - "127.0.0.1:4510-4559:4510-4559"
     environment:
       - DEBUG=${DEBUG:-0}
-      - SERVICES=S3
+      - SERVICES=s3
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
-      - localnet
+      localnet:
+        ipv4_address: 10.0.2.20
 
 volumes:
   mongo-data:
 
 networks:
   localnet:
+    ipam:
+      config:
+        # Specify the subnet range for IP address allocation
+        - subnet: 10.0.2.0/24
