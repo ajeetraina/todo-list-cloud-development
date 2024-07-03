@@ -15,7 +15,7 @@ services:
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_REGION=us-east-1
-      - S3_BUCKET_NAME=sample-bucket 
+      - S3_BUCKET_NAME=sample-bucket
     networks:
       - localnet
 
@@ -27,6 +27,8 @@ services:
       - 3000:3000
     depends_on:
       - server
+    environment:
+     - REACT_APP_API_URL=http://server:5000/api
     networks:
       - localnet
 
@@ -35,7 +37,7 @@ services:
     volumes:
       - mongo-data:/data/db
     ports:
-      - 27017:27017
+      - "27017:27017"
     networks:
       - localnet
 
@@ -43,22 +45,19 @@ services:
     container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
     image: localstack/localstack
     ports:
-      - "127.0.0.1:4566:4566"            # LocalStack Gateway
-      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
     environment:
       - DEBUG=${DEBUG:-0}
       - SERVICES=S3
-      - EDGE_PORT=4566
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - localnet
 
-
 volumes:
   mongo-data:
-
 
 networks:
   localnet:
