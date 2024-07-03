@@ -40,10 +40,6 @@ The application is divided into two main parts:
 ## Prerequisites
 
 - Docker Desktop
-- Node.js
-- npm or yarn
-- MongoDB
-- Localstack
 
 
 ## Installation
