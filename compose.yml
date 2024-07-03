@@ -10,7 +10,7 @@ services:
       - mongo
     environment:
       - MONGODB_URI=mongodb://mongo:27017/todo-app
-      - JWT_SECRET=v9K/zavPZm4TVXQ9t0N0eackvHeY3E5+IzyueJMvLxc=
+      - JWT_SECRET=XXXXX
       - AWS_ENDPOINT=http://host.docker.internal:4566
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
