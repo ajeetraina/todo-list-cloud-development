@@ -55,28 +55,8 @@ git clone https://github.com/ajeetraina/todo-list-local-cloud/
 cd todo-list-local-cloud
 ```
 
-2. **Using docker init:**
 
-Go to `server/` and `client/` folder and use `docker init` to build Dockerfile and compose file respectively.
-
-
-2. **Setup Docker Compose File:**
-
-
-Open `compose.yml` and enter AWS credentials as per your environment. Assuming that you have S3 already configured, enter the bucket name.
-
-
-```
-   environment:
-      - MONGODB_URI=mongodb://mongodb:27017/todo-app
-      - JWT_SECRET=your-jwt-secret-key
-      - AWS_ACCESS_KEY_ID=test
-      - AWS_SECRET_ACCESS_KEY=test
-      - AWS_REGION=us-east-1
-      - S3_BUCKET_NAME=sample-bucket
-```
-
-3. **Bringing up services:**
+2. **Bringing up services:**
 
 ```
  docker compose up -d
@@ -86,96 +66,75 @@ Open `compose.yml` and enter AWS credentials as per your environment. Assuming t
 
 
 
-## Libraries and Tools Used
+## Create S3 bucket manually
 
-### Server-Side Libraries
+```
+awslocal s3 mb s3://sample-bucket
+make_bucket: sample-bucket
+```
 
-- **@aws-sdk/client-s3**: AWS SDK for JavaScript for S3.
-- **bcryptjs**: Library to hash passwords.
-- **cors**: Middleware to enable CORS.
-- **dotenv**: Library to load environment variables from a .env file.
-- **express**: Web framework for Node.js.
-- **jsonwebtoken**: Library to sign and verify JSON Web Tokens.
-- **mongoose**: MongoDB object modeling tool.
-- **multer**: Middleware for handling file uploads.
-- **multer-s3**: Streaming multer storage engine for AWS S3.
+## Check the logs
 
-### Client-Side Libraries
+```
+2024-07-03 19:27:32 
+2024-07-03 19:27:32 LocalStack version: 3.5.1.dev
+2024-07-03 19:27:32 LocalStack build date: 2024-06-24
+2024-07-03 19:27:32 LocalStack build git hash: 9a3d238ac
+2024-07-03 19:27:32 
+2024-07-03 19:27:32 Ready.
+2024-07-03 19:28:13 2024-07-03T13:58:13.804  INFO --- [et.reactor-0] localstack.request.aws     : AWS s3.CreateBucket => 200
+```
 
-- **@mui/icons-material**: Material UI icons.
-- **@mui/material**: Material UI components.
-- **@testing-library/jest-dom**: Custom jest matchers for DOM nodes.
-- **@testing-library/react**: Simple and complete React DOM testing utilities.
-- **@testing-library/user-event**: Fire events to interact with the UI.
-- **axios**: Promise-based HTTP client.
-- **react**: JavaScript library for building user interfaces.
-- **react-dom**: Entry point to the DOM and server renderers for React.
-- **react-router-dom**: Declarative routing for React.
-- **react-scripts**: Scripts and configuration used by Create React App.
-- **web-vitals**: Library for measuring web performance metrics.
+## Access the app and try uploading the image
 
-## Environment Variables
+```
+ awslocal s3api list-objects --bucket sample-bucket
+{
+    "Contents": [
+        {
+            "Key": "1720015203095-Screenshot 2024-07-03 at 9.24.34â¯AM.png",
+            "LastModified": "2024-07-03T14:00:03.000Z",
+            "ETag": "\"cd4396baa401efb22797472599faff87\"",
+            "Size": 735617,
+            "StorageClass": "STANDARD",
+            "Owner": {
+                "DisplayName": "webfile",
+                "ID": "75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a"
+            }
+        }
+    ],
+    "RequestCharged": null
+```
 
-Create a `.env` file in the `server` directory and add the following environment variables:
+## Verify if item gets into Mongo
 
-```env
-# MongoDB URI
-MONGODB_URI=<your-mongodb-uri>
+```
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.10
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.10
 
-# JWT Secret
-JWT_SECRET=<your-jwt-secret>
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
 
-# AWS S3 Configuration
-AWS_ACCESS_KEY_ID=<your-aws-access-key-id>
-AWS_SECRET_ACCESS_KEY=<your-aws-secret-access-key>
-AWS_REGION=<your-aws-region>
-S3_BUCKET_NAME=<your-s3-bucket-name>
+------
+   The server generated these startup warnings when booting
+   2024-07-03T13:57:31.418+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2024-07-03T13:57:32.732+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2024-07-03T13:57:32.733+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never' in this binary version
+   2024-07-03T13:57:32.733+00:00: vm.max_map_count is too low
+------
 
-# Server Port
-PORT=5000
+test> show dbs
+admin      40.00 KiB
+config     72.00 KiB
+local      80.00 KiB
+todo-app  180.00 KiB
+test> use todo-app
+switched to db todo-app
+todo-app> db.todos.countDocuments()
+5
+todo-app> db.todos.countDocuments()
+6
+todo-app>
 ```
 
 
-
-
-## API Endpoints
-
-### Auth Routes
-
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login and get a JWT token
-
-### Todo Routes
-
-- `GET /api/todos` - Get all todos for the authenticated user
-- `POST /api/todos` - Create a new todo
-- `PUT /api/todos/:id` - Update a todo
-- `DELETE /api/todos/:id` - Delete a todo
-
-### Database Structure
-
-The application uses MongoDB as its NoSQL database. Below is the structure of the MongoDB collections:
-
-- **Users Collection (`test.users`)**:
-
-  - `_id`: ObjectId
-  - `username`: String
-  - `password`: String (hashed)
-
-- **Todos Collection (`test.todos`)**:
-  - `_id`: ObjectId
-  - `userId`: ObjectId (reference to the user)
-  - `title`: String
-  - `description`: String
-  - `tags`: Array of Strings
-  - `image`: String (URL to the image in S3)
-  - `files`: Array of Strings (URLs to the files in S3)
-  - `createdAt`: Date
-  - `updatedAt`: Date
-
-
-
-### Security Measures
-
-- The `developer` IAM user has limited permissions as compared to the root user, ensuring that the root account details remain secure.
-- Using IAM roles and policies, access to the S3 bucket is managed securely.
