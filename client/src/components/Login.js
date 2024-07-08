@@ -21,7 +21,12 @@ const Login = ({ onAuthSuccess }) => {
   };
 
   return (
-    <Box component="form" sx={{ mt: 1 }} noValidate autoComplete="off">
+    <Box 
+      component="form" 
+      sx={{ mt: 1, width: '300px', margin: 'auto' }} // Adjusted styling
+      noValidate 
+      autoComplete="off"
+    >
       <TextField
         margin="normal"
         required
