@@ -37,10 +37,7 @@ The application is divided into two main parts:
 
 ## Prerequisites
 
-- Node.js
-- npm or yarn
-- MongoDB
-- AWS S3 account (for file uploads)
+- Docker Desktop
 
 ## AWS Setup
 
