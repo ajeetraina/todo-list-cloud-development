@@ -128,8 +128,9 @@ button:hover {
 /* Refresh and add button alignment */
 .refresh-add-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 /* Modal styling */
@@ -214,7 +215,9 @@ textarea {
 /* Search and filter fields side by side */
 .search-filter {
   display: flex;
+  justify-content: center;
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 .search-field {
